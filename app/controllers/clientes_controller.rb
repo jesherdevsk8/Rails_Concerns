@@ -1,9 +1,16 @@
 class ClientesController < ApplicationController
   before_action :set_cliente, only: %i[ show update destroy ]
+  include BuscaPorNome
+
+  # GET /clientes/ativos
+  def ativos
+    @clientes = Cliente.ativos
+    render json: @clientes
+  end
 
   # GET /clientes
   def index
-    @clientes = Cliente.all
+    @clientes = busca_por_nome(Cliente.all)
 
     render json: @clientes
   end

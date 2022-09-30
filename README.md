@@ -56,7 +56,6 @@ def funcionario_params
 end
 
 ```
-
 ## Testar o POST novamente
 
 ```bash
@@ -64,5 +63,63 @@ end
 curl -d '{"nome":"José", "telefone":"16-99999-8889", "responsavel":"Marcos", "ativo":"false"}' -H "Content-Type: application/json" -X POST http://localhost:3000/clientes
 
 curl -d '{"nome":"Maria", "telefone":"16-99999-9999", "setor":"Compras", "ativo":"false"}' -H "Content-Type: application/json" -X POST http://localhost:3000/funcionarios
+
+```
+
+## Criação do concern e crie um module
+
+```ruby
+touch app/models/concerns/ativo.rb
+
+module Ativo
+  extend ActiveSupport::Concern
+
+  included do
+    scope :ativo, -> { where(ativo: true)}
+  end
+end
+
+touch app/controllers/concerns/busca_por_nome.rb
+
+module BuscaPorNome
+  extend ActiveSupport::Concern
+
+  included do
+    scope :ativo, -> { where(ativo: true)}
+  end
+end
+```
+
+- Incluir concern no model funcionarios e clientes
+
+```ruby
+api/app/models/cliente.rb
+include Ativo
+
+api/app/models/funcionarios.rb
+include Ativo
+
+app/controllers/funcionarios_controller.rb
+include BuscaPorNome
+
+app/controllers/clientes_controller.rb
+include BuscaPorNome
+
+```
+
+## ROTAS - route.rb
+```ruby
+Rails.application.routes.draw do
+  resources :funcionarios
+  get 'funcionarios_ativos', to: 'funcionarios#ativos'
+  resources :clientes
+  get 'clientes_ativos', to: 'clientes#ativos'
+end
+
+127.0.0.1:3000/funcionarios_ativos
+127.0.0.1:3000/clientes_ativos
+
+127.0.0.1:3000/funcionarios?nome=Priscilla
+127.0.0.1:3000/clientes?nome=Jesher
 
 ```

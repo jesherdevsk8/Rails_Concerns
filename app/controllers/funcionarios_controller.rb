@@ -1,9 +1,16 @@
 class FuncionariosController < ApplicationController
   before_action :set_funcionario, only: %i[ show update destroy ]
+  include BuscaPorNome
+
+  # GET /funcionarios/ativos
+  def ativos
+    @funcionarios = Funcionario.ativos
+    render json: @funcionarios
+  end
 
   # GET /funcionarios
   def index
-    @funcionarios = Funcionario.all
+    @funcionarios = busca_por_nome(Funcionario.all)
 
     render json: @funcionarios
   end
