@@ -66,7 +66,7 @@ curl -d '{"nome":"Maria", "telefone":"16-99999-9999", "setor":"Compras", "ativo"
 
 ```
 
-## Criação do concern e crie um module
+## Criação do concern
 
 ```ruby
 touch app/models/concerns/ativo.rb
@@ -85,7 +85,13 @@ module BuscaPorNome
   extend ActiveSupport::Concern
 
   included do
-    scope :ativo, -> { where(ativo: true)}
+    def busca_por_nome(busca_nome)
+      if params[:nome].present?
+        return busca_nome.where(nome: params[:nome])
+      else
+        return busca_nome
+      end
+    end
   end
 end
 ```
