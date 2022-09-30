@@ -128,7 +128,8 @@ end
 127.0.0.1:3000/funcionarios?nome=Priscilla
 127.0.0.1:3000/clientes?nome=Jesher
 
-[Check out funcionarios_controller.rb](https://github.com/jesherdevsk8/Rails_Concerns/blob/main/app/controllers/funcionarios_controller.rb)
-[Check out clientes_controller.rb](https://github.com/jesherdevsk8/Rails_Concerns/blob/main/app/controllers/clientes_controller.rb)
-
 ```
+
+[Check funcionarios_controller.rb](app/controllers/funcionarios_controller.rb)
+
+[Check clientes_controller.rb](app/controllers/clientes_controller.rb)
