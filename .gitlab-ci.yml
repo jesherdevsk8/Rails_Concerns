@@ -4,11 +4,7 @@ before_script:
 stages:
   - build
 
-#
-# STAGING
-#
-
-build:staging:
+build:
   stage: build
   only:
     - staging
@@ -18,7 +14,7 @@ build:staging:
     - docker network inspect api-concerns &>/dev/null || docker network create api-concerns
     - echo 'criou o network'
 
-test:staging:
+test:
   stage: test
   only:
     - staging
