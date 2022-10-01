@@ -1,10 +1,10 @@
 image: docker:stable
 
 service:
-- docker:dind
+  - docker:dind
 
 before_script:
-- docker info
+  - docker info
 
 stages:
   - build
