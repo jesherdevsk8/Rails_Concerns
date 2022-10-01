@@ -21,4 +21,5 @@ build:
 test:
   stage: test
   script:
-    - echo "Stage testing"
+    - echo "Rodando o rails test"
+    - bundle exec rails test
