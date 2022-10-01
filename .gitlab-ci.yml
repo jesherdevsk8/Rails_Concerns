@@ -1,3 +1,5 @@
+iamge: docker:stable
+
 stages:
   - build
   - test
@@ -5,10 +7,12 @@ stages:
 build:
   stage: build
   script:
-    - echo "COMO É QUE TANKA"
+    - if [ "$(docker container ls -aq -f name=api-concerns)" ]; then docker rm --force api-concerns; fi
+    - docker build . -t api-concerns
+    - docker network inspect api-concerns &>/dev/null || docker network create api-concerns
+    - echo 'criou o network'
 
 test:
   stage: test
   script:
-    - echo "TESTANDO OS TESTES"
-    - echo "TENHA EM MÃOS O NÚMERO DO TICKET"
+    - echo "Stage testing"
