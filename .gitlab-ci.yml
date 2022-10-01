@@ -1,0 +1,26 @@
+before_script:
+  - echo "Olá Mundo, estou rodando antes do build"
+
+stages:
+  - build
+
+#
+# STAGING
+#
+
+build:staging:
+  stage: build
+  only:
+    - staging
+  script:
+    - if [ "$(docker container ls -aq -f name=api-concerns-test)" ]; then docker rm --force api-concerns-test; fi
+    - docker build . -t api-concerns:hml
+    - docker network inspect api-concerns &>/dev/null || docker network create api-concerns
+    - echo 'criou o network'
+
+test:staging:
+  stage: test
+  only:
+    - staging
+  script:
+    - echo "Test stagind script"
