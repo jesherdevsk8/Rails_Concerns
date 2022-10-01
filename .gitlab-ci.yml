@@ -5,12 +5,10 @@ stages:
 build:
   stage: build
   script:
-    - if [ "$(docker container ls -aq -f name=api-concerns)" ]; then docker rm --force api-concerns; fi
-    - docker build . -t api-concerns
-    - docker network inspect api-concerns &>/dev/null || docker network create api-concerns
-    - echo 'criou o network'
+    - echo "COMO É QUE TANKA"
 
 test:
   stage: test
   script:
-    - echo "Stage testing"
+    - echo "TESTANDO OS TESTES"
+    - echo "TENHA EM MÃOS O NÚMERO DO TICKET"
