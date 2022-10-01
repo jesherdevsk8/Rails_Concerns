@@ -1,16 +1,17 @@
+image: docker:stable
+
+services:
+  - docker:dind
+
+before_script:
+  - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
+
 stages:
   - build
   - test
+  - deploy
 
-build:
+build-image:
   stage: build
   script:
-    - if [ "$(docker container ls -aq -f name=api-concerns-test)" ]; then docker rm --force api-concerns-test; fi
-    - docker build . -t api-concerns:hml
-    - docker network inspect api-concerns &>/dev/null || docker network create api-concerns
-    - echo 'criou o network'
-
-test:
-  stage: test
-  script:
-    - echo "Stage testing"
+    - docker build --tag api-concerns .
