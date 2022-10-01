@@ -22,4 +22,4 @@ test:
   stage: test
   script:
     - echo "Rodando o rails test"
-    - bundle exec rails test
+    - rails test
