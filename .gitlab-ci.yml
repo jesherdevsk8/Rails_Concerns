@@ -15,3 +15,5 @@ build-image:
   stage: build
   script:
     - docker build --tag api-concerns .
+    - docker tag api-concerns jesherpinkman/api-concerns:latest
+    - docker push jesherpinkman/api-concerns:latest
