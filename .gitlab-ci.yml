@@ -1,13 +1,9 @@
-before_script:
-  - echo "Olá Mundo, estou rodando antes do build"
-
 stages:
   - build
+  - test
 
 build:
   stage: build
-  only:
-    - staging
   script:
     - if [ "$(docker container ls -aq -f name=api-concerns-test)" ]; then docker rm --force api-concerns-test; fi
     - docker build . -t api-concerns:hml
@@ -16,7 +12,5 @@ build:
 
 test:
   stage: test
-  only:
-    - staging
   script:
-    - echo "Test stagind script"
+    - echo "Stage testing"
