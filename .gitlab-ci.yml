@@ -1,4 +1,4 @@
-iamge: docker:stable
+image: docker:stable
 
 stages:
   - build
