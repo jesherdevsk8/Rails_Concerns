@@ -1,5 +1,11 @@
 image: docker:stable
 
+service:
+- docker:dind
+
+before_script:
+- docker info
+
 stages:
   - build
   - test
