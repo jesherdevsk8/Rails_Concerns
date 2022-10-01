@@ -5,7 +5,10 @@ stages:
 build:
   stage: build
   script:
-    - echo "testando"
+    - if [ "$(docker container ls -aq -f name=api-concerns)" ]; then docker rm --force api-concerns; fi
+    - docker build . -t api-concerns
+    - docker network inspect api-concerns &>/dev/null || docker network create api-concerns
+    - echo 'criou o network'
 
 test:
   stage: test
